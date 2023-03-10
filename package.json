@@ -1,0 +1,33 @@
+{
+  "name": "14-mvc-02-challenge",
+  "version": "1.0.0",
+  "description": "Tech blog",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon -w ./ server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ptrcao/14-MVC-02-Challenge.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ptrcao/14-MVC-02-Challenge/issues"
+  },
+  "homepage": "https://github.com/ptrcao/14-MVC-02-Challenge#readme",
+  "dependencies": {
+    "bootstrap": "^5.2.3",
+    "connect-session-sequelize": "^7.1.5",
+    "dotenv": "^16.0.3",
+    "express-handlebars": "^7.0.1",
+    "express-session": "^1.17.3",
+    "mysql2": "^3.2.0",
+    "package": "^1.0.1",
+    "sequelize": "^6.29.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.21"
+  }
+}
