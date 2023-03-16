@@ -4,7 +4,7 @@ const { readCSV } = require("../helpers/read_csv");
 const path = require('path');
 
 const { Post, Comment, Author,
-} = require('../models');
+} = require('/models');
 
 
 // const Author = require(path.join(__dirname, 'Author'));
