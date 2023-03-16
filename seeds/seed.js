@@ -5,7 +5,7 @@ const path = require('path');
 
 // const { Post, Comment, Author,
 // } = require('/models');
-const { Post, Comment, Author } = require(path.join(__dirname, '..', 'models'));
+const { Post, Comment, Author } = require(path.join(__dirname, '..', 'models', 'Index.js'));
 
 // const Author = require(path.join(__dirname, 'Author'));
 // const Comment = require(path.join(__dirname, 'Comment'));
