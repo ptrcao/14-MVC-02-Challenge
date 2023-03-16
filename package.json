@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/ptrcao/14-MVC-02-Challenge#readme",
   "dependencies": {
+    "bcrypt": "^5.1.0",
     "bootstrap": "^5.2.3",
     "connect-session-sequelize": "^7.1.5",
     "csv-parser": "^3.0.0",

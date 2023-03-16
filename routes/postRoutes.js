@@ -84,9 +84,12 @@ async function getPost(req) {
 
   router.get('/:id', withAuth, async (req, res) => {
     try {
+
+      console.log("Login - req.session.logged_in:", req.session.logged_in);
+
       const { post, comments } = await getPost(req);
 
-      const loggedIn = req.session.loggedIn
+      const loggedIn = req.session.logged_in
 
       res.render('post', { post, comments, loggedIn });
     } catch (err) {

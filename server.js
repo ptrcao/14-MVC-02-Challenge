@@ -68,6 +68,16 @@ const userRoutes = require('./routes/userRoutes');
 // homepage, which includes existing blog posts if any have been posted; navigation links for the homepage and the dashboard; and the option to log in
 
 
+// Middleware to check if user is authenticated
+app.use((req, res, next) => {
+    if (req.session.logged_in || req.path === '/' || req.path === '/test' || req.path === '/login' || req.path === '/signup') {
+      next();
+    } else {
+      res.redirect('/login');
+    }
+  });
+
+
 
 // index routes
 app.use(indexRoutes)
