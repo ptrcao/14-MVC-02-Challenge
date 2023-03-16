@@ -51,7 +51,7 @@ const hbs = exphbs.create({
 });
 
 // Define the port number on which the application will listen for incoming requests
-const PORT = 80;
+const PORT = process.env.PORT || 80;
 
 // Adds middleware to the application that serves static files from the public directory. This means that any files in the public directory will be served directly to clients requesting them, without any special routing or logic needed. The express.static middleware function takes one argument, which is the directory from which to serve static assets (in this case, the public directory)
 // app.use(express.static('public'));
