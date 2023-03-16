@@ -1,0 +1,14 @@
+{{!-- {{#each blogPosts}}       <!-- Loop over the blogPosts array -->
+  {{#if @index '<' 4}}    <!-- If the current index is less than n... -->
+    {{> post-excerpt}}    <!-- Include the post-excerpt partial -->
+  {{/if}}                 <!-- End the if block -->
+{{/each}}                 <!-- End the each block --> --}}
+
+<ul>
+  {{#with (slice posts 0 10)}}
+    {{#each this}}
+      <li><a href="/post/{{id}}"><strong>{{post_title}}</strong> - {{formatDate post_date_time}}</a></li>
+    {{/each}}
+  {{/with}}
+</ul>
+

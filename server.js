@@ -1,3 +1,8 @@
+const sequelize = require("./config/connection");
+
+const session = require('express-session');
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
+
 // Import the Express framework into the current file by requiring the 'express' module
 const express = require('express');
 // Import the Node.js path module, which provides utilities for working with file and directory paths. It is used to manipulate and interact with file paths in a platform-agnostic way.
@@ -6,15 +11,74 @@ const path = require('path')
 // Create an instance of the Express application by calling the imported express() function. The app variable will be used to configure the application's behavior and handle HTTP requests
 const app = express();
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+
+const sess = {
+    secret: 'Super secret secret',
+    cookie: {},
+    resave: false,
+    saveUninitialized: true,
+    store: new SequelizeStore({
+      db: sequelize
+    })
+  };
+
+  app.use(session(sess));
+const { Author, Comment, Post } = require("./models");
+
+
+
+
+
+const exphbs = require('express-handlebars');
+const hbs = exphbs.create({
+    // helpers: {
+    //     lessThan: (value, limit) => {
+    //       return value < limit;
+    //     },
+    //   },
+    helpers: {
+        slice: function(arr, start, end) {
+          return arr.slice(start, end);
+        },
+        formatDate: function(timestamp){
+            const date = new Date(timestamp * 1000);
+            return date.toLocaleString();
+          }
+      }
+});
+
 // Define the port number on which the application will listen for incoming requests
-const PORT = 3001;
+const PORT = 3000;
 
 // Adds middleware to the application that serves static files from the public directory. This means that any files in the public directory will be served directly to clients requesting them, without any special routing or logic needed. The express.static middleware function takes one argument, which is the directory from which to serve static assets (in this case, the public directory)
-app.use(express.static('public'));
+// app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.engine('handlebars', hbs.engine);
+app.set('view engine', 'handlebars');
+app.use(express.static(path.join(__dirname, 'public')));
 
 
-
+const indexRoutes = require('./routes/indexRoutes')
+const postRoutes = require('./routes/postRoutes');
+const userRoutes = require('./routes/userRoutes');
 // homepage, which includes existing blog posts if any have been posted; navigation links for the homepage and the dashboard; and the option to log in
+
+
+
+// index routes
+app.use(indexRoutes)
+// post routes
+app.use('/post', postRoutes)
+
+app.use(userRoutes)
+
+// app.get('/post-archive', (req, res) => {
+// res.render('index', { title: 'Tech Blog Home' });
+// });
 
 // WHEN I click on the homepage option, THEN I am taken to the homepage
 
@@ -46,3 +110,6 @@ app.use(express.static('public'));
 
 // WHEN I am idle on the site for more than a set time, THEN I am able to view comments but I am prompted to log in again before I can add, update, or delete comments
 
+sequelize.sync({force : false }).then(() => {
+app.listen(PORT, () => console.log(`Now listening on port ${PORT}`));
+});

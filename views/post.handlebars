@@ -1,0 +1,36 @@
+{{!-- <!-- Render the post -->
+<h1>{{post.post_title}}</h1>
+<p>{{formatDate post.post_date_time}}</p>
+<p>{{post.post_content}}</p> --}}
+
+{{!-- <!-- Render the comments -->
+{{#if post.comments.length}}
+  <h2>Comments</h2>
+  {{#each post.comments}}
+    <div>
+      <p>{{this.comment_content}}</p>
+      <p>{{this.author.username}} - {{formatDate this.comment_date_time}}</p>
+    </div>
+  {{/each}}
+{{else}}
+  <p>No comments yet.</p>
+{{/if}} --}}
+
+
+<!-- Render the post -->
+<h1>{{post.post_title}}</h1>
+<p>{{formatDate post.post_date_time}}</p>
+<p>{{post.post_content}}</p>
+
+<!-- Render the comments -->
+{{#if comments.length}}
+  <h2>Comments</h2>
+  {{#each comments}}
+    <div>
+      <p>{{this.comment_content}}</p>
+      <p>{{this.author.username}} - {{formatDate this.comment_date_time}}</p>
+    </div>
+  {{/each}}
+{{else}}
+  <p>No comments yet.</p>
+{{/if}}

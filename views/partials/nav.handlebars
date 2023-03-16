@@ -1,0 +1,13 @@
+<nav>
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Contact</a></li>
+    {{#unless logged_in}}
+    <li><a href="/login">Log in</a></li>
+    {{/unless}}
+     {{#if logged_in}}
+    <li><a href="/logout">Log out</a></li>
+     {{/if}}
+  </ul>
+</nav>
