@@ -53,22 +53,8 @@ const { Post, Author, Comment } = require(path.join(__dirname, '..', 'models', '
 
   
 
-
-
 async function getPost(req) {
     try {
-        // const postData = await Post.findByPk(req.params.id, {
-        //     include: [
-        //       Author,
-        //     //   {
-        //     //     model: Comment,
-        //     //     include: [Author],
-        //     //   },
-        //     ],
-        //   });
-
-
-        // const postData = await Post.findByPk(req.params.id);
 
         const postData = await Post.findByPk(req.params.id, {
             include: {
@@ -89,40 +75,8 @@ async function getPost(req) {
         const comments = commentData.map((post) => post.get({ plain: true }));
     
         const singlePost = postData.get({ plain: true });
-        // res.render('post', {
-        //     ...singlePost,
-        //     comments,
-             
-        //     logged_in: req.session.logged_in
-        //   });
-    
-
-
-        // const post = postData.get({ plain: true });
-    //   const post = await Post.findByPk(req.params.id, {
-    //     include: [
-    //       {
-    //         model: Author,
-    //         as: 'author',
-    //         attributes: ['id', 'username'],
-    //       },
-    //     ],
-    //     raw: true,
-    //   });
-  
-    //   const comments = await Comment.findAll({
-    //     where: { post_id: req.params.id },
-    //     include: [
-    //       {
-    //         model: Author,
-    //         attributes: ['id', 'username'],
-    //       },
-    //     ],
-    //     order: [['comment_date_time', 'DESC']],
-    //     raw: true,
-    //   });
+ 
           return { singlePost, comments };
-    // return { post, comments };
 
     } catch (error) {
       console.error('Error fetching post:', error);

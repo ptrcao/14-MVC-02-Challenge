@@ -14,14 +14,17 @@ const bcrypt = require('bcrypt');
 
 router.post('/login', async (req, res) => {
   try {
+
+    console.log('From /login POST, req.body.email is: ' + req.body.email)
     const authorData = await Author.findOne({
       where: { email: req.body.email },
-      // raw: true
+
     });
+    console.log('authorData from DB: ' + authorData)
     console.log('authorData from DB: ' + JSON.stringify(authorData))
     if (!authorData) {
       res.status(400).json({
-        message: `Incorrect email or password email: ${req.body.email}, please click back on your browser and try again.`,
+        message: `No such user found. Please check your email address and try again. If you have not registered with that email yet, please <a href="/signup">sign up</a>.`,
       });
       return;
     }
@@ -30,7 +33,7 @@ router.post('/login', async (req, res) => {
 
     if (!validPassword) {
       res.status(400).json({
-        message: `Incorrect email or password email: ${req.body.email}, please click back on your browser and try again.`,
+        message: `Incorrect password . Please try again.`,
       });
       return;
     }
@@ -116,14 +119,14 @@ router.post('/signup', async (req, res) => {
 
     if (existingAuthor) {
       const message =
-        existingAuthor.username === username ? 'Username is already taken' : 'Email is already registered';
+        existingAuthor.username === username ? 'Username is already taken.' : 'Email is already registered.';
 
       res.status(400).json({ message });
       return;
     }
 
     // Hash password
-    const hashedPassword = await bcrypt.hash(password.trim(), 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     // Create new author
     const newAuthor = await Author.create({
