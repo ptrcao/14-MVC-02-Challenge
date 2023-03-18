@@ -18,9 +18,10 @@
 
 
 <!-- Render the post -->
-<h1>{{post.post_title}}</h1>
-<p>{{formatDate post.post_date_time}}</p>
-<p>{{post.post_content}}</p>
+<h1>{{singlePost.post_title}}</h1>
+<p>{{formatDate singlePost.post_date_time}}</p>
+<h2>by {{singlePost.Author.username}}</h2>
+<p>{{singlePost.post_content}}</p>
 
 <!-- Render the comments -->
 {{#if comments.length}}
@@ -28,7 +29,7 @@
   {{#each comments}}
     <div>
       <p>{{this.comment_content}}</p>
-      <p>{{this.author.username}} - {{formatDate this.comment_date_time}}</p>
+      <p>{{this.Author.username}} - {{formatDate this.comment_date_time}}</p>
     </div>
   {{/each}}
 {{else}}

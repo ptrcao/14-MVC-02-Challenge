@@ -1,7 +1,6 @@
 const sequelize = require("./config/connection");
 
-const session = require('express-session');
-const SequelizeStore = require('connect-session-sequelize')(session.Store);
+
 
 // Import the Express framework into the current file by requiring the 'express' module
 const express = require('express');
@@ -11,9 +10,10 @@ const path = require('path')
 // Create an instance of the Express application by calling the imported express() function. The app variable will be used to configure the application's behavior and handle HTTP requests
 const app = express();
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
+
+const session = require('express-session');
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 const sess = {
     secret: 'Super secret secret',
@@ -26,6 +26,13 @@ const sess = {
   };
 
   app.use(session(sess));
+
+
+
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 // const { Author, Comment, Post } = require("./models");
 
 
@@ -68,14 +75,14 @@ const userRoutes = require('./routes/userRoutes');
 // homepage, which includes existing blog posts if any have been posted; navigation links for the homepage and the dashboard; and the option to log in
 
 
-// Middleware to check if user is authenticated
-app.use((req, res, next) => {
-    if (req.session.logged_in || req.path === '/' || req.path === '/test' || req.path === '/login' || req.path === '/signup') {
-      next();
-    } else {
-      res.redirect('/login');
-    }
-  });
+// // Middleware to check if user is authenticated
+// app.use((req, res, next) => {
+//     if (req.session.loggedIn || req.path === '/' || req.path === '/test' || req.path === '/login' || req.path === '/signup') {
+//       next();
+//     } else {
+//       res.redirect('/login');
+//     }
+//   });
 
 
 

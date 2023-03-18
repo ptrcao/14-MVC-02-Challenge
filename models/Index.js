@@ -21,7 +21,7 @@ foreignKey: 'comment_author_id',
 });
 Post.belongsTo(Author, {
     foreignKey: 'post_author_id',
-    as: 'author',
+    // as: 'author',
 });
 
 
