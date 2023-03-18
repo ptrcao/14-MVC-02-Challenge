@@ -176,8 +176,7 @@ async function getPost(req) {
     res.render('post', {
         singlePost,
         comments,
-         
-        logged_in: req.session.logged_in
+        loggedIn: req.session.loggedIn
       });
 
 
