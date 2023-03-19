@@ -38,14 +38,17 @@ router.post('/login', async (req, res) => {
       return;
     }
 
+    req.session.authorId = authorData.id;
+    req.session.username = authorData.username;
+    req.session.loggedIn = true;
+
+    // const message = 'You are now logged in!';
+
       req.session.save(() => {
-        req.session.authorId = authorData.id;
-        req.session.username = authorData.username;
-        req.session.loggedIn = true;
         console.log('FROM POST /login loggedIn:', req.session.loggedIn);
         res
-          .status(200)
-          .json({ authorData, message: 'You are now logged in!' }).redirect('/');
+        .status(200)
+        .send();
       });
 
 
@@ -76,7 +79,7 @@ router.get('/logout', (req, res) => {
     if (err) {
       console.log(err);
     } else {
-      res.redirect('/login');
+      res.redirect('/login', { session: req.session });
     }
   });
 });
@@ -89,7 +92,7 @@ router.get('/login', (req, res) => {
     // This code will redirect the user to the previous URL if available, or to the homepage ('/') if the Referer header is not set.
   }
   try {
-    res.render('login');
+    res.render('login', { session: req.session });
   } catch (err) {
     console.error(err);
     res.status(500).json(err);
@@ -98,7 +101,7 @@ router.get('/login', (req, res) => {
 
 // Route to display the signup form
 router.get('/signup', (req, res) => {
-  res.render('signup');
+  res.render('signup', { session: req.session });
 });
 
 router.post('/signup', async (req, res) => {
@@ -135,14 +138,25 @@ router.post('/signup', async (req, res) => {
       password: hashedPassword,
     });
 
-    // Create new session and set req.session.loggedIn to true upon successful sign up
-    req.session.save(() => {
-      req.session.authorId = newAuthor.id;
-      req.session.username = newAuthor.username;
-      req.session.loggedIn = true;
-      res.json(newAuthor);
-      console.log('FROM POST /signup loggedIn:', req.session.loggedIn);
-    });
+    // // Create new session and set req.session.loggedIn to true upon successful sign up
+    // req.session.save(() => {
+    //   req.session.authorId = newAuthor.id;
+    //   req.session.username = newAuthor.username;
+    //   req.session.loggedIn = true;
+    //   // res.json(newAuthor);
+    //   console.log('FROM POST /signup loggedIn:', req.session.loggedIn);
+    // });
+
+   // Set req.session variables
+   req.session.authorId = newAuthor.id;
+   req.session.username = newAuthor.username;
+   req.session.loggedIn = true;
+
+   // Save session
+   req.session.save(() => {
+     console.log('FROM POST /signup loggedIn:', req.session.loggedIn);
+   });
+
 
     // Return success response
     // res.status(201).json({
@@ -154,7 +168,7 @@ router.post('/signup', async (req, res) => {
     //   },
     // });
 
-    //res.status(201).redirect('/')
+    res.render('signup', { session : req.session });
 
 
   } catch (error) {

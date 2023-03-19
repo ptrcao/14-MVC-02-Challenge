@@ -130,6 +130,7 @@ async function getPost(req) {
     res.render('post', {
         singlePost,
         comments,
+        session: req.session,
         loggedIn: req.session.loggedIn
       });
 

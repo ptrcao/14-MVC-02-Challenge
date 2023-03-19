@@ -15,6 +15,10 @@ const app = express();
 const session = require('express-session');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
+// const sessStore = new SequelizeStore({
+//     db: sequelize
+//   });
+
 const sess = {
     secret: 'Super secret secret',
     cookie: {},
@@ -22,7 +26,8 @@ const sess = {
     saveUninitialized: true,
     store: new SequelizeStore({
       db: sequelize
-    })
+    }),
+    // store: sessStore
   };
 
   app.use(session(sess));
@@ -40,6 +45,7 @@ app.use(express.urlencoded({ extended: true }));
 
 
 const exphbs = require('express-handlebars');
+const helpers = require('handlebars-helpers')(); // Import the handlebars-helpers package and assign to the helpers variable
 const hbs = exphbs.create({
     // helpers: {
     //     lessThan: (value, limit) => {
@@ -47,6 +53,7 @@ const hbs = exphbs.create({
     //     },
     //   },
     helpers: {
+        eq: helpers.eq,
         slice: function(arr, start, end) {
           return arr.slice(start, end);
         },
@@ -128,5 +135,10 @@ app.use(userRoutes)
 // WHEN I am idle on the site for more than a set time, THEN I am able to view comments but I am prompted to log in again before I can add, update, or delete comments
 
 sequelize.sync({force : false }).then(() => {
-app.listen(PORT, () => console.log(`Now listening on port ${PORT}`));
+app.listen(PORT, () => {
+// app.locals.sessions = {};
+
+console.log(`Now listening on port ${PORT}`)
+}
+);
 });

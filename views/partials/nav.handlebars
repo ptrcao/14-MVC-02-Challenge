@@ -3,10 +3,11 @@
     <li><a href="/">Home</a></li>
     <li><a href="#">About</a></li>
     <li><a href="#">Contact</a></li>
-    {{#unless loggedIn}}
+    {{#unless session.loggedIn}}
     <li><a href="/login">Log in</a></li>
     {{/unless}}
-     {{#if loggedIn}}
+     {{#if session.loggedIn}}
+    <li>Welcome, {{session.username}}!</li>
     <li><a href="/logout">Log out</a></li>
      {{/if}}
   </ul>

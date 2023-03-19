@@ -32,7 +32,7 @@ router.get('/', async (req, res) => {
 
     const loggedIn = req.session.loggedIn
 
-    res.render('index', { title: 'Tech Blog Home', posts, loggedIn });
+    res.render('index', { title: 'Tech Blog Home', posts, loggedIn, session: req.session });
     }
     catch(err){
         console.error(err);

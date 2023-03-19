@@ -13,12 +13,14 @@ const { Post, Comment, Author } = require(path.join(__dirname, '..', 'models', '
 
 const seedAll = async() => {
 
+
 await sequelize.sync({ force: true });
 console.log('\n----- DATABASE SYNCED -----\n');
 
+// tableName.destroy({where: {}, truncate: true});
 
 const authorData = await readCSV(path.join(__dirname, 'csv', 'authors.csv'));
-await Author.bulkCreate(authorData);
+await Author.bulkCreate(authorData, {individualHooks: true});
 console.log('\n----- authors SEEDED -----\n');
 
 const postData = await readCSV(path.join(__dirname, 'csv', 'posts.csv'));
