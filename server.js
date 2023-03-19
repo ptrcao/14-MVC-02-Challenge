@@ -99,6 +99,9 @@ const indexRoutes = require('./routes/indexRoutes')
 const postRoutes = require('./routes/postRoutes');
 const userRoutes = require('./routes/userRoutes');
 const myDashboardRoutes = require('./routes/myDashboardRoutes');
+const myNewPostRoutes = require('./routes/newPostRoutes');
+
+
 // homepage, which includes existing blog posts if any have been posted; navigation links for the homepage and the dashboard; and the option to log in
 
 // const blogRoutes = require('./routes/blogRoutes');
@@ -122,6 +125,8 @@ app.use('/post', postRoutes);
 app.use(userRoutes);
 
 app.use('/my-dashboard', myDashboardRoutes);
+
+app.use('/new-post', myNewPostRoutes);
 
 // app.use('/blog', blogRoutes)
 
