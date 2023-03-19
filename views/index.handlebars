@@ -9,7 +9,7 @@
   {{#with (slice (sort posts "timestamp" "DESC") 0 10)}}
   {{!-- Display the most recent 10 posts --}}
     {{#each this}}
-      <li><a href="/post/{{id}}"><strong>{{post_title}}</strong> - {{formatDate post_date_time}}</a></li>
+      <li class="card"><a href="/post/{{id}}"><strong>{{post_title}}</strong> - {{formatDate post_date_time}}</a></li>
     {{/each}}
   {{/with}}
 </ul>

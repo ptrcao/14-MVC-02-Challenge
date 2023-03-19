@@ -32,6 +32,14 @@ app.use(formidable());
 // app.use(bodyParser.urlencoded({ extended: false }));
 // app.use(bodyParser.json());
 
+
+app.use("/css",express.static("./node_modules/bootstrap/dist/css"));
+app.use("/js",express.static("./node_modules/bootstrap/dist/js"));
+// //or
+// app.use("/",express.static("./node_modules/bootstrap/dist/"));
+
+
+
 const session = require('express-session');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
@@ -163,6 +171,10 @@ app.use('/new-post', myNewPostRoutes);
 // WHEN I click on the logout option in the navigation, THEN I am signed out of the site
 
 // WHEN I am idle on the site for more than a set time, THEN I am able to view comments but I am prompted to log in again before I can add, update, or delete comments
+
+
+
+
 
 sequelize.sync({force : false }).then(() => {
 app.listen(PORT, () => {

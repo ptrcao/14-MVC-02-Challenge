@@ -4,15 +4,21 @@
   {{/if}}                 <!-- End the if block -->
 {{/each}}                 <!-- End the each block --> --}}
 
+<h2>My Posts</h2>
+{{#if myPosts.length}}
 <ul>
   {{!-- {{#with (slice posts 10 19)}} --}}
 
   {{!-- Display the most recent 10 posts --}}
     {{#each (sort myPosts "timestamp" "DESC")}}
-      <li><a href="/post/{{id}}"><strong>{{post_title}}</strong> - {{formatDate post_date_time}}</a></li>
-    {{/each}}
 
+      <li class="card"><a href="/post/{{id}}"><strong>{{post_title}}</strong> - {{formatDate post_date_time}}</a></li>
+
+    {{/each}}
+{{else}}
+  <p>You have not made any posts yet.</p>
+{{/if}}
 </ul>
 
-<button id="add-new-post-btn" onclick="location.href='/my-dashboard/new-post'" type="button">
+<button id="add-new-post-btn" onclick="location.href='/new-post'" type="button">
          Add New Post</button>
