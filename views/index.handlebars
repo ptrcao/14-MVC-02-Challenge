@@ -5,7 +5,9 @@
 {{/each}}                 <!-- End the each block --> --}}
 
 <ul>
-  {{#with (slice posts 0 10)}}
+  {{!-- {{#with (slice posts 10 19)}} --}}
+  {{#with (slice (sort posts "timestamp" "DESC") 0 10)}}
+  {{!-- Display the most recent 10 posts --}}
     {{#each this}}
       <li><a href="/post/{{id}}"><strong>{{post_title}}</strong> - {{formatDate post_date_time}}</a></li>
     {{/each}}
