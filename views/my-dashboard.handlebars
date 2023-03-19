@@ -8,11 +8,11 @@
   {{!-- {{#with (slice posts 10 19)}} --}}
 
   {{!-- Display the most recent 10 posts --}}
-    {{#each myPosts}}
+    {{#each (sort myPosts "timestamp" "DESC")}}
       <li><a href="/post/{{id}}"><strong>{{post_title}}</strong> - {{formatDate post_date_time}}</a></li>
     {{/each}}
 
 </ul>
 
-<button id="add-new-post-btn" onclick="location.href='/post/new-post'" type="button">
+<button id="add-new-post-btn" onclick="location.href='/my-dashboard/new-post'" type="button">
          Add New Post</button>
