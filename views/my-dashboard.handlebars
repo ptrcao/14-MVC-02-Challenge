@@ -1,0 +1,18 @@
+{{!-- {{#each blogPosts}}       <!-- Loop over the blogPosts array -->
+  {{#if @index '<' 4}}    <!-- If the current index is less than n... -->
+    {{> post-excerpt}}    <!-- Include the post-excerpt partial -->
+  {{/if}}                 <!-- End the if block -->
+{{/each}}                 <!-- End the each block --> --}}
+
+<ul>
+  {{!-- {{#with (slice posts 10 19)}} --}}
+
+  {{!-- Display the most recent 10 posts --}}
+    {{#each myPosts}}
+      <li><a href="/post/{{id}}"><strong>{{post_title}}</strong> - {{formatDate post_date_time}}</a></li>
+    {{/each}}
+
+</ul>
+
+<button id="add-new-post-btn" onclick="location.href='/post/new-post'" type="button">
+         Add New Post</button>
