@@ -30,19 +30,5 @@ for (item of commentFormData){
         return res.json();
       }
     })
-//   .then(data => {
-//     // Create new comment element
-//     const newComment = document.createElement('div');
-//     newComment.classList.add('comment');
-//     newComment.innerHTML = `
-//       <div class="comment-info">
-//         <p class="comment-author">${data.author}</p>
-//         <p class="comment-date">${data.date}</p>
-//       </div>
-//       <p class="comment-text">${data.comment}</p>
-//     `;
-//     // Add new comment to top of comments section
-//     commentsSection.prepend(newComment);
-//   })
   .catch(err => console.error(err));
 });
