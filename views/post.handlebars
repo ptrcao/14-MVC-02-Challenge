@@ -6,7 +6,7 @@
 
 <div id="comments-section">
 <!-- Render the comments -->
-{{#if comments.length}}
+
   <h2>Comments</h2>
 
 <form id="comment-form">
@@ -15,7 +15,7 @@
   <textarea id="commentText" name="commentText" required></textarea>
   <button type="submit">Submit</button>
 </form>
-
+{{#if comments.length}}
   {{#each comments}}
     <div>
       <p>{{this.comment_content}}</p>
