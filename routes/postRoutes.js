@@ -70,6 +70,7 @@ async function getPost(req) {
             post_id: req.params.id
           },
           include: [{ model: Author }],
+          order: [['comment_date_time', 'DESC']]
         })
          
         const comments = commentData.map((post) => post.get({ plain: true }));
@@ -144,5 +145,27 @@ async function getPost(req) {
     }
   });
   
+
+
+  router.post('/:id/new-comment', withAuth, async (req, res) => {
+    try {
+
+
+        const newComment = await Comment.create({
+            comment_content: req.fields.commentText,
+            comment_date_time: Math.floor(Date.now() / 1000),
+            comment_author_id: req.session.authorId,
+            post_id: req.params.id
+      });
+  
+    //   res.status(200).json(newComment);
+    res.status(200).send();
+    } catch (err) {
+      console.error(err);
+      res.status(500).json(err);
+    }
+  });
+  
+
 
 module.exports = router;

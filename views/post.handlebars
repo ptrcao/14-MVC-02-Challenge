@@ -4,9 +4,18 @@
 <h2>by {{singlePost.Author.username}}</h2>
 <p>{{singlePost.post_content}}</p>
 
+<div id="comments-section">
 <!-- Render the comments -->
 {{#if comments.length}}
   <h2>Comments</h2>
+
+<form id="comment-form">
+  <input type="hidden" name="postId" value="{{singlePost.id}}">
+  <label for="comment">Add a comment:</label>
+  <textarea id="commentText" name="commentText" required></textarea>
+  <button type="submit">Submit</button>
+</form>
+
   {{#each comments}}
     <div>
       <p>{{this.comment_content}}</p>
@@ -16,3 +25,6 @@
 {{else}}
   <p>No comments yet.</p>
 {{/if}}
+</div>
+
+<script src="/js/post-comment.js"></script>

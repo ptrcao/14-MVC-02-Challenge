@@ -9,8 +9,28 @@ const path = require('path')
 
 // Create an instance of the Express application by calling the imported express() function. The app variable will be used to configure the application's behavior and handle HTTP requests
 const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
+const formidable = require('express-formidable');
+app.use(formidable());
+// What are Express, Formidable, and this?
+// Express is a fast, unopinionated, minimalist web framework for Node.js.
 
+// Formidable is a Node.js module for parsing form data, including multipart/form-data file upload.
+
+// So, express-formidable is something like a bridge between them, specifically an Express middleware implementation of Formidable.
+// src: https://www.npmjs.com/package/express-formidable
+
+// var bodyParser = require('body-parser');
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded());
+// // in latest body-parser use like below.
+// app.use(bodyParser.urlencoded({ extended: true }));
+
+// const bodyParser = require('body-parser');
+// app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(bodyParser.json());
 
 const session = require('express-session');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
@@ -35,8 +55,7 @@ const sess = {
 
 
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+
 
 // const { Author, Comment, Post } = require("./models");
 
@@ -81,6 +100,7 @@ const postRoutes = require('./routes/postRoutes');
 const userRoutes = require('./routes/userRoutes');
 // homepage, which includes existing blog posts if any have been posted; navigation links for the homepage and the dashboard; and the option to log in
 
+// const blogRoutes = require('./routes/blogRoutes');
 
 // // Middleware to check if user is authenticated
 // app.use((req, res, next) => {
@@ -99,6 +119,8 @@ app.use(indexRoutes)
 app.use('/post', postRoutes)
 
 app.use(userRoutes)
+
+// app.use('/blog', blogRoutes)
 
 // app.get('/post-archive', (req, res) => {
 // res.render('index', { title: 'Tech Blog Home' });
