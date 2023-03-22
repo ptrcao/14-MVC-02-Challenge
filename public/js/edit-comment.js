@@ -71,12 +71,12 @@ const editCommentHandler = async (event) => {
     event.target.parentNode.insertBefore(cancelButton, event.target);
   };
 
-  document.querySelectorAll('.edit-button').forEach((button) => {
-    button.addEventListener('click', editCommentHandler);
-  });
+  // document.querySelectorAll('.edit-button').forEach((button) => {
+  //   button.addEventListener('click', editCommentHandler);
+  // });
 
-  // document.querySelectorAll('.edit-button')
-  // data-commentid
+
+  
 
 
 
@@ -97,5 +97,17 @@ const editCommentHandler = async (event) => {
 // });
 
 
-const editButton = document.querySelector('[data-commentId]');
-editButton.addEventListener('click', editCommentHandler);
+// const editButton = document.querySelector('[data-commentId]');
+// editButton.addEventListener('click', editCommentHandler);
+
+document.addEventListener('DOMContentLoaded', () => {
+
+document.querySelector('#comments-section').addEventListener("click", function(e){
+  const target = e.target;
+  if (target.matches("button[data-commentId]")){
+    // target.addEventListener('click', editCommentHandler);
+    editCommentHandler(e); // Call the editCommentHandler function
+  }
+})
+
+});
