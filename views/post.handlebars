@@ -7,9 +7,9 @@
 <h2>by {{singlePost.Author.username}}</h2>
 <p class="card-text">{{singlePost.post_content}}</p>
 
-<div id="comments-section">
+<div id="comments-section" class="card">
 <!-- Render the comments -->
-<div class="card">
+{{!-- <div class="card"> --}}
   <h2>Comments</h2>
 
 <form id="comment-form">
@@ -34,7 +34,7 @@
   <p>No comments yet.</p>
 {{/if}}
 
-</div>
+{{!-- </div> --}}
 </div>
 </div>
 <script src="/js/post-comment.js"></script>

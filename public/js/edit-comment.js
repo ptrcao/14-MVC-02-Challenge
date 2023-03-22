@@ -1,6 +1,24 @@
 // There are two buttons, one to trigger the edit option
 // and a second to actually submit the edit
 
+// https://stackoverflow.com/a/4238971
+function placeCaretAtEnd(el) {
+  el.focus();
+  if (typeof window.getSelection != "undefined"
+          && typeof document.createRange != "undefined") {
+      var range = document.createRange();
+      range.selectNodeContents(el);
+      range.collapse(false);
+      var sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+  } else if (typeof document.body.createTextRange != "undefined") {
+      var textRange = document.body.createTextRange();
+      textRange.moveToElementText(el);
+      textRange.collapse(false);
+      textRange.select();
+  }
+}
 
 
 
@@ -12,6 +30,7 @@ const editCommentHandler = async (event) => {
     const commentContent = commentContentEl.innerText;
 
     commentContentEl.setAttribute('contenteditable', 'true');
+    placeCaretAtEnd(commentContentEl)
 
     const saveButton = document.createElement('button');
     saveButton.textContent = 'Save';
@@ -55,6 +74,9 @@ const editCommentHandler = async (event) => {
   document.querySelectorAll('.edit-button').forEach((button) => {
     button.addEventListener('click', editCommentHandler);
   });
+
+  // document.querySelectorAll('.edit-button')
+  // data-commentid
 
 
 
