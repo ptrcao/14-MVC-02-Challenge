@@ -12,15 +12,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const formidable = require('express-formidable');
-app.use(formidable());
-// What are Express, Formidable, and this?
-// Express is a fast, unopinionated, minimalist web framework for Node.js.
 
-// Formidable is a Node.js module for parsing form data, including multipart/form-data file upload.
-
-// So, express-formidable is something like a bridge between them, specifically an Express middleware implementation of Formidable.
-// src: https://www.npmjs.com/package/express-formidable
 
 // var bodyParser = require('body-parser');
 // app.use(bodyParser.json());
@@ -103,11 +95,13 @@ app.set('view engine', 'handlebars');
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-const indexRoutes = require('./routes/indexRoutes')
+const indexRoutes = require('./routes/indexRoutes');
 const postRoutes = require('./routes/postRoutes');
-const userRoutes = require('./routes/userRoutes');
 const myDashboardRoutes = require('./routes/myDashboardRoutes');
-const myNewPostRoutes = require('./routes/newPostRoutes');
+const editCommentRoutes = require('./routes/editCommentRoutes');
+const userRoutes = require('./routes/userRoutes');
+
+const NewPostRoutes = require('./routes/newPostRoutes');
 
 
 // homepage, which includes existing blog posts if any have been posted; navigation links for the homepage and the dashboard; and the option to log in
@@ -123,20 +117,27 @@ const myNewPostRoutes = require('./routes/newPostRoutes');
 //     }
 //   });
 
+app.use('/edit-comment', editCommentRoutes);
+app.use('/new-post', NewPostRoutes);
+
+const formidable = require('express-formidable');
+app.use(formidable());
+// What are Express, Formidable, and this?
+// Express is a fast, unopinionated, minimalist web framework for Node.js.
+
+// Formidable is a Node.js module for parsing form data, including multipart/form-data file upload.
+
+// So, express-formidable is something like a bridge between them, specifically an Express middleware implementation of Formidable.
+// src: https://www.npmjs.com/package/express-formidable
 
 
-// index routes
+
+
+
 app.use(indexRoutes);
-// post routes
 app.use('/post', postRoutes);
-
 app.use(userRoutes);
-
 app.use('/my-dashboard', myDashboardRoutes);
-
-app.use('/new-post', myNewPostRoutes);
-
-// app.use('/blog', blogRoutes)
 
 // app.get('/post-archive', (req, res) => {
 // res.render('index', { title: 'Tech Blog Home' });

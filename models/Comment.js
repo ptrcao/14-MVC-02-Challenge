@@ -19,6 +19,10 @@ Comment.init(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    comment_edited_date_time: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
     comment_author_id: {
         type: DataTypes.INTEGER,
         references: {

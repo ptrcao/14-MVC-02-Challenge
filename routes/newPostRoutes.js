@@ -1,20 +1,20 @@
 const express = require('express');
 const router = express.Router();
-const withAuth = require('../utils/auth')
+const { withAuth } = require('../utils/auth')
 
 const path = require('path');
 
 const { Post, Author, Comment } = require(path.join(__dirname, '..', 'models', 'Index'));
 
 
-router.get('/', withAuth, async (req, res) => {
-    try {
-        res.render('new-post', { session: req.session });
-      } catch (err) {
-        console.error(err);
-        res.status(500).json(err);
-      }
-  })
+// router.get('/', withAuth, async (req, res) => {
+//     try {
+//         res.render('new-post', { session: req.session });
+//       } catch (err) {
+//         console.error(err);
+//         res.status(500).json(err);
+//       }
+//   })
 
   
   router.post('/', withAuth, async (req, res) => {

@@ -15,9 +15,9 @@ const bcrypt = require('bcrypt');
 router.post('/login', async (req, res) => {
   try {
 
-    console.log('From /login POST, req.body.email is: ' + req.body.email)
+    console.log('From /login POST, req.fields.email is: ' + req.fields.email)
     const authorData = await Author.findOne({
-      where: { email: req.body.email },
+      where: { email: req.fields.email },
 
     });
     console.log('authorData from DB: ' + authorData)
@@ -29,7 +29,7 @@ router.post('/login', async (req, res) => {
       return;
     }
 
-    const validPassword = await authorData.checkPassword(req.body.password);
+    const validPassword = await authorData.checkPassword(req.fields.password);
 
     if (!validPassword) {
       res.status(400).json({
@@ -187,6 +187,11 @@ router.get('/test', (req, res) => {
   res.send(`Logged in: ${req.session.loggedIn}`);
 });
 
+
+
+router.post('post/:id/new-comment', async (req, res) => {
+
+})
 
 
 
