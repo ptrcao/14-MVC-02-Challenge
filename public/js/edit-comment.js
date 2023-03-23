@@ -32,6 +32,8 @@ const editCommentHandler = async (event) => {
     commentContentEl.setAttribute('contenteditable', 'true');
     placeCaretAtEnd(commentContentEl)
 
+    const editButtonParent = event.target.parentNode;
+
     const saveButton = document.createElement('button');
     saveButton.textContent = 'Save';
     saveButton.addEventListener('click', async () => {
@@ -63,8 +65,8 @@ const editCommentHandler = async (event) => {
     cancelButton.addEventListener('click', () => {
       commentContentEl.innerText = commentContent;
       commentContentEl.removeAttribute('contenteditable');
-      commentContentEl.parentNode.removeChild(saveButton);
-      commentContentEl.parentNode.removeChild(cancelButton);
+      editButtonParent.removeChild(saveButton);
+      editButtonParent.removeChild(cancelButton);
     });
 
     event.target.parentNode.insertBefore(saveButton, event.target);

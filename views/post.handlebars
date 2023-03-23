@@ -3,9 +3,9 @@
     <div class="card-header">
 <h1 class="card-title">{{singlePost.post_title}}</h1>
     </div>
-<p>{{formatDate singlePost.post_date_time}}{{#if (eq singlePost.Author.username session.username)}} <button data-postId="{{singlePost.id}}">Edit</button>{{/if}}</p>
+<p>{{formatDate singlePost.post_date_time}}{{#if (eq singlePost.Author.username session.username)}} <button data-postid="{{singlePost.id}}">Edit</button>{{/if}}</p>
 <h2>by {{singlePost.Author.username}}</h2>
-<p class="card-text">{{singlePost.post_content}}</p>
+<p id="post-content" class="card-text">{{singlePost.post_content}}</p>
 
 <div id="comments-section" class="card">
 <!-- Render the comments -->
@@ -39,3 +39,4 @@
 </div>
 <script src="/js/post-comment.js"></script>
 <script src="/js/edit-comment.js"></script>
+<script src="/js/edit-post.js"></script>
