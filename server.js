@@ -120,7 +120,7 @@ const editPostRoutes = require('./routes/editPostRoutes');
 
 app.use(editCommentRoutes);
 app.use(editPostRoutes);
-
+app.use(userRoutes);
 const formidable = require('express-formidable');
 app.use(formidable());
 // What are Express, Formidable, and this?
@@ -137,7 +137,7 @@ app.use(formidable());
 
 app.use(indexRoutes);
 app.use('/post', postRoutes);
-app.use(userRoutes);
+
 app.use('/my-dashboard', myDashboardRoutes);
 app.use('/new-post', newPostRoutes);
 
