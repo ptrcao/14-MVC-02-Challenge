@@ -139,7 +139,7 @@ app.use(indexRoutes);
 app.use('/post', postRoutes);
 
 app.use('/my-dashboard', myDashboardRoutes);
-app.use('/new-post', newPostRoutes);
+app.use(newPostRoutes);
 
 // app.get('/post-archive', (req, res) => {
 // res.render('index', { title: 'Tech Blog Home' });
