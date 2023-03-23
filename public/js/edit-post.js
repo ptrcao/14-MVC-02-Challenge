@@ -25,14 +25,17 @@ function placeCaretAtEnd(el) {
   const editPostHandler = async (event) => {
       event.preventDefault();
   
+      const editButtonParent = event.target.parentNode;
+
       const postId = event.target.getAttribute("data-postid");
+      
       const postContentEl = document.querySelector(`#post-content`);
       const postContent = postContentEl.innerText;
-  
+
+      
       postContentEl.setAttribute('contenteditable', 'true');
       placeCaretAtEnd(postContentEl)
   
-      const editButtonParent = event.target.parentNode;
 
       const saveButton = document.createElement('button');
       saveButton.textContent = 'Save';
@@ -45,7 +48,7 @@ function placeCaretAtEnd(el) {
         const response = await fetch(`/post/${postId}/edit-post`, {
           method: 'PUT',
           body: JSON.stringify({
-            comment_content: newPostContent,
+            post_content: newPostContent,
           }),
           // body: formData,
           headers: {
@@ -67,10 +70,24 @@ function placeCaretAtEnd(el) {
         postContentEl.removeAttribute('contenteditable');
         editButtonParent.removeChild(saveButton);
         editButtonParent.removeChild(cancelButton);
+
+        const editButton = document.createElement('button')
+        editButton.setAttribute('data-postid', postId);
+        editButton.textContent = 'Edit';
+        editButtonParent.appendChild(editButton);
+     // Attach the editPostHandler to the new Edit button - note that the equivalent Edit button for comment does not require this when re-added because it uses an eventhandler on the parent!
+     editButton.addEventListener("click", function (e) {
+        editPostHandler(e);
+          });
+
       });
   
       event.target.parentNode.insertBefore(saveButton, event.target);
       event.target.parentNode.insertBefore(cancelButton, event.target);
+
+      editButtonParent.removeChild(event.target);
+
+ 
     };
   
     // document.querySelectorAll('.edit-button').forEach((button) => {

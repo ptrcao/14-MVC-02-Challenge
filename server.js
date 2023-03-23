@@ -101,8 +101,9 @@ const myDashboardRoutes = require('./routes/myDashboardRoutes');
 const editCommentRoutes = require('./routes/editCommentRoutes');
 const userRoutes = require('./routes/userRoutes');
 
-const NewPostRoutes = require('./routes/newPostRoutes');
+const newPostRoutes = require('./routes/newPostRoutes');
 
+const editPostRoutes = require('./routes/editPostRoutes');
 
 // homepage, which includes existing blog posts if any have been posted; navigation links for the homepage and the dashboard; and the option to log in
 
@@ -117,8 +118,8 @@ const NewPostRoutes = require('./routes/newPostRoutes');
 //     }
 //   });
 
-app.use('/edit-comment', editCommentRoutes);
-app.use('/new-post', NewPostRoutes);
+app.use(editCommentRoutes);
+app.use(editPostRoutes);
 
 const formidable = require('express-formidable');
 app.use(formidable());
@@ -138,6 +139,7 @@ app.use(indexRoutes);
 app.use('/post', postRoutes);
 app.use(userRoutes);
 app.use('/my-dashboard', myDashboardRoutes);
+app.use('/new-post', newPostRoutes);
 
 // app.get('/post-archive', (req, res) => {
 // res.render('index', { title: 'Tech Blog Home' });

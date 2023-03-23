@@ -25,6 +25,9 @@ function placeCaretAtEnd(el) {
 const editCommentHandler = async (event) => {
     event.preventDefault();
 
+    const editButtonParent = event.target.parentNode;
+    
+
     const commentId = event.target.getAttribute('data-commentid');
     const commentContentEl = document.querySelector(`#card-text-${commentId}`);
     const commentContent = commentContentEl.innerText;
@@ -32,7 +35,7 @@ const editCommentHandler = async (event) => {
     commentContentEl.setAttribute('contenteditable', 'true');
     placeCaretAtEnd(commentContentEl)
 
-    const editButtonParent = event.target.parentNode;
+    
 
     const saveButton = document.createElement('button');
     saveButton.textContent = 'Save';
@@ -42,7 +45,7 @@ const editCommentHandler = async (event) => {
       // const formData = new FormData();
       // formData.append('comment_content',newCommentContent)
 
-      const response = await fetch(`/edit-comment/comment/${commentId}/edit-comment`, {
+      const response = await fetch(`/comment/${commentId}/edit-comment`, {
         method: 'PUT',
         body: JSON.stringify({
           comment_content: newCommentContent,
@@ -67,10 +70,17 @@ const editCommentHandler = async (event) => {
       commentContentEl.removeAttribute('contenteditable');
       editButtonParent.removeChild(saveButton);
       editButtonParent.removeChild(cancelButton);
+
+      const editButton = document.createElement('button')
+      editButton.setAttribute('data-commentid', commentId);
+      editButton.textContent = 'Edit';
+      editButtonParent.appendChild(editButton);
     });
 
     event.target.parentNode.insertBefore(saveButton, event.target);
     event.target.parentNode.insertBefore(cancelButton, event.target);
+
+    editButtonParent.removeChild(event.target);
   };
 
   // document.querySelectorAll('.edit-button').forEach((button) => {

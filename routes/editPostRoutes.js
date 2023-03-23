@@ -8,13 +8,12 @@ const { withAuth, withPostAuthorAuth, withCommentAuthorAuth } = require('../util
 
 
 
-router.get('/post/:id/edit', withAuth, withPostAuthorAuth, async (req, res) => {
+router.put('/post/:id/edit-post', withAuth, withPostAuthorAuth, async (req, res) => {
     try {
         const updatedPost = await Post.update(
           {
-            post_title: req.body.post_title,
             post_content: req.body.post_content,
-            post_date_time: req.body.post_date_time,
+            post_date_time: Math.floor(Date.now() / 1000)
           },
           {
             where: {

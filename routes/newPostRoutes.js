@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { withAuth } = require('../utils/auth')
+const { withAuth, withPostAuthorAuth } = require('../utils/auth')
 
 const path = require('path');
 
@@ -17,7 +17,7 @@ const { Post, Author, Comment } = require(path.join(__dirname, '..', 'models', '
 //   })
 
   
-  router.post('/', withAuth, async (req, res) => {
+  router.post('/', withAuth, withPostAuthorAuth, async (req, res) => {
     try {
       const { title, content } = req.fields;
       const myPost = await Post.create({
