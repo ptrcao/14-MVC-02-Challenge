@@ -73,6 +73,7 @@ const editCommentHandler = async (event) => {
 
       const editButton = document.createElement('button')
       editButton.setAttribute('data-commentid', commentId);
+      editButton.classList.add("edit-button");
       editButton.textContent = 'Edit';
       editButtonParent.appendChild(editButton);
     });
@@ -92,31 +93,13 @@ const editCommentHandler = async (event) => {
 
 
 
-  
-// document.addEventListener('click', (e) => {
-//   if (e.target && e.target.matches('[data-commentId]')) {
-//     const commentId = e.target.getAttribute('data-commentId');
-//     // Make API call with commentId
-//     fetch(`/comment/${commentId}/edit-comment`)
-//       .then((response) => response.json())
-//       .then((data) => {
-//         // Handle response data
-//       })
-//       .catch((error) => {
-//         console.error(error);
-//       });
-//   }
-// });
 
-
-// const editButton = document.querySelector('[data-commentId]');
-// editButton.addEventListener('click', editCommentHandler);
 
 document.addEventListener('DOMContentLoaded', () => {
 
 document.querySelector('#comments-section').addEventListener("click", function(e){
   const target = e.target;
-  if (target.matches("button[data-commentId].edit-button")){
+  if (target.matches("button[data-commentid].edit-button")){
 
 
     // target.addEventListener('click', editCommentHandler);

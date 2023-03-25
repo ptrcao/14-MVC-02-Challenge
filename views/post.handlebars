@@ -27,7 +27,7 @@
   {{#each comments}}
     <div class="card">
       <p id="card-text-{{this.id}}" class="card-text">{{this.comment_content}}</p>
-      <p class="card-footer">{{this.Author.username}} - {{formatDate this.comment_date_time}}{{#if (eq this.Author.username ../session.username)}} <button data-commentId="{{this.id}}">Edit</button>{{/if}}</p>
+      <p class="card-footer">{{this.Author.username}} - {{formatDate this.comment_date_time}}{{#if (eq this.Author.username ../session.username)}} <button class="edit-button" data-commentid="{{this.id}}">Edit</button> <button class="del-button" data-commentid="{{this.id}}">Delete</button>{{/if}}</p>
     </div>
   {{/each}}
 {{else}}
