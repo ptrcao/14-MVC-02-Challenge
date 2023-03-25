@@ -116,7 +116,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 document.querySelector('#comments-section').addEventListener("click", function(e){
   const target = e.target;
-  if (target.matches("button[data-commentId]")){
+  if (target.matches("button[data-commentId].edit-button")){
+
+
     // target.addEventListener('click', editCommentHandler);
     editCommentHandler(e); // Call the editCommentHandler function
   }
