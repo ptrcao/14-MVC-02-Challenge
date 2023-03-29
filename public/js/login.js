@@ -8,10 +8,15 @@ form.addEventListener('submit', (e) => {
 
   const formData = new FormData(form);
 
+  const json = convertFD2JSON(formData);
+  console.log('json: ', json)
+
   fetch('/login', {
     method: 'POST',
-    // headers: { 'Content-Type': 'application/json' },
-    body: formData,
+    // headers: { 'Content-Type': 'multipart/form-data', },
+    
+    headers: { 'Content-Type': 'application/json' },
+    body: json,
   })
     .then((res) => {
       if (res.ok) {

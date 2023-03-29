@@ -48,18 +48,21 @@ Author.init(
         },
       },
     password: {
-    type: DataTypes.STRING(1000),
+    type: DataTypes.STRING(255),
     allowNull: false,
     },
   },
   {
     hooks: {
+        // removing this fixes failed password checks on login as this is double encrypting
         beforeCreate: async (newUserData) => {
           newUserData.password = await bcrypt.hash(newUserData.password, 10);
+          console.log(`Hashed password before create: ${newUserData.password}`);
           return newUserData;
         },
         beforeUpdate: async (updatedUserData) => {
           updatedUserData.password = await bcrypt.hash(updatedUserData.password, 10);
+          console.log(`Hashed password before update: ${updatedUserData.password}`);
           return updatedUserData;
         },
       },

@@ -1,7 +1,5 @@
 const sequelize = require("./config/connection");
 
-
-
 // Import the Express framework into the current file by requiring the 'express' module
 const express = require('express');
 // Import the Node.js path module, which provides utilities for working with file and directory paths. It is used to manipulate and interact with file paths in a platform-agnostic way.
@@ -9,27 +7,17 @@ const path = require('path')
 
 // Create an instance of the Express application by calling the imported express() function. The app variable will be used to configure the application's behavior and handle HTTP requests
 const app = express();
+
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-
-
-// var bodyParser = require('body-parser');
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded());
-// // in latest body-parser use like below.
-// app.use(bodyParser.urlencoded({ extended: true }));
-
-// const bodyParser = require('body-parser');
-// app.use(bodyParser.urlencoded({ extended: false }));
-// app.use(bodyParser.json());
 
 
 app.use("/css",express.static("./node_modules/bootstrap/dist/css"));
 app.use("/js",express.static("./node_modules/bootstrap/dist/js"));
 // //or
 // app.use("/",express.static("./node_modules/bootstrap/dist/"));
-
 
 
 const session = require('express-session');
@@ -53,13 +41,7 @@ const sess = {
   app.use(session(sess));
 
 
-
-
-
-
 // const { Author, Comment, Post } = require("./models");
-
-
 
 
 
@@ -105,6 +87,7 @@ const newPostRoutes = require('./routes/newPostRoutes');
 
 const editPostRoutes = require('./routes/editPostRoutes');
 
+const delPostRoutes = require('./routes/delPostRoutes')
 // homepage, which includes existing blog posts if any have been posted; navigation links for the homepage and the dashboard; and the option to log in
 
 // const blogRoutes = require('./routes/blogRoutes');
@@ -120,9 +103,16 @@ const editPostRoutes = require('./routes/editPostRoutes');
 
 app.use(editCommentRoutes);
 app.use(editPostRoutes);
+app.use(delPostRoutes)
 
-const formidable = require('express-formidable');
-app.use(formidable());
+
+// const formidable = require('express-formidable');
+// app.use(formidable());
+
+
+
+app.use(userRoutes);
+
 // What are Express, Formidable, and this?
 // Express is a fast, unopinionated, minimalist web framework for Node.js.
 
@@ -133,13 +123,21 @@ app.use(formidable());
 
 
 
-app.use(userRoutes);
-
 app.use(indexRoutes);
 app.use('/post', postRoutes);
 
 app.use('/my-dashboard', myDashboardRoutes);
 app.use(newPostRoutes);
+
+sequelize.sync({force : false }).then(() => {
+app.listen(PORT, () => {
+// app.locals.sessions = {};
+
+console.log(`Now listening on port ${PORT}`)
+}
+);
+});
+
 
 // app.get('/post-archive', (req, res) => {
 // res.render('index', { title: 'Tech Blog Home' });
@@ -179,11 +177,13 @@ app.use(newPostRoutes);
 
 
 
-sequelize.sync({force : false }).then(() => {
-app.listen(PORT, () => {
-// app.locals.sessions = {};
 
-console.log(`Now listening on port ${PORT}`)
-}
-);
-});
+// var bodyParser = require('body-parser');
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded());
+// // in latest body-parser use like below.
+// app.use(bodyParser.urlencoded({ extended: true }));
+
+// const bodyParser = require('body-parser');
+// app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(bodyParser.json());

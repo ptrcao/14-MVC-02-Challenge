@@ -7,10 +7,13 @@ form.addEventListener('submit', async (event) => {
 //   const title = formData.get('title');
 //   const content = formData.get('content');
 
+const json = convertFD2JSON(formData);
+
   try {
     const response = await fetch('/new-post', {
       method: 'POST',
-      body: formData,
+      headers: { 'Content-Type': 'application/json' },
+      body: json,
     });
 
     if (!response.ok) {

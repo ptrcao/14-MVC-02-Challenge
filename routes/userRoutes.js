@@ -3,6 +3,10 @@ const Author = require('../models/Author');
 const { Op } = require('sequelize');
 const bcrypt = require('bcrypt');
 
+
+
+// const querystring = require('querystring');
+
 // // Middleware to check if user is authenticated
 // router.use((req, res, next) => {
 //   if (req.session.loggedIn || req.path === '/login' || req.path === '/signup') {
@@ -12,13 +16,24 @@ const bcrypt = require('bcrypt');
 //   }
 // });
 
+
+
+
 router.post('/login', async (req, res) => {
   try {
+    console.log('Yo yo')
+    // console.log('From /login POST, req.fields.email is: ' + req.fields.email)
 
-    console.log('From /login POST, req.fields.email is: ' + req.fields.email)
+    console.table(req.body)
+
+    // const formData = querystring.parse(body);
+    console.log('req.body.email: ', req.body.email)
+    console.log('req.body.password: ', req.body.password)
+
+
     const authorData = await Author.findOne({
-      where: { email: req.fields.email },
-
+      // where: { email: req.fields.email },
+      where: { email: req.body.email },
     });
     console.log('authorData from DB: ' + authorData)
     console.log('authorData from DB: ' + JSON.stringify(authorData))
@@ -29,7 +44,9 @@ router.post('/login', async (req, res) => {
       return;
     }
 
-    const validPassword = await authorData.checkPassword(req.fields.password);
+    // const validPassword = await authorData.checkPassword(req.fields.password);
+
+    const validPassword = await authorData.checkPassword(req.body.password);
 
     if (!validPassword) {
       res.status(400).json({
@@ -101,18 +118,27 @@ router.get('/login', (req, res) => {
 });
 
 // Route to display the signup form
-router.get('/signup', (req, res) => {
+router.get('/signup', async (req, res) => {
   res.render('signup', { session: req.session });
 });
 
 router.post('/signup', async (req, res) => {
   try {
-    console.log('req.body' + JSON.stringify(req.body));
-    const { username, email, password, confirm_password } = req.body;
+    // console.log('req.body: ', req.body);
+    // const { username, email, password, confirm_password } = req.body;
 
-    if (password !== confirm_password) {
+    const username = req.body.username;
+    const email = req.body.email;
+    const password = req.body.password;
+    const confirmPassword = req.body.confirm_password;
+
+    console.log(username, email, password, confirmPassword)
+
+    if ( req.body.password !== req.body.confirm_password) {
       return res.status(400).json({ message: 'Passwords do not match' });
     }
+
+  
 
     // Check if username or email already exists
     const existingAuthor = await Author.findOne({
@@ -130,6 +156,7 @@ router.post('/signup', async (req, res) => {
     }
 
     // Hash password
+    console.log('look password: ', password);
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Create new author

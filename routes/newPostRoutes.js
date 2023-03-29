@@ -19,7 +19,8 @@ router.get('/new-post', withAuth, async (req, res) => {
   
   router.post('/new-post', withAuth, async (req, res) => {
     try {
-      const { title, content } = req.fields;
+        console.log(req.body)
+      const { title, content } = req.body;
       console.log('title: ', title, ', content: ', content)
       console.log('Yo yo: ', req.session.authorId)
       const myPost = await Post.create({

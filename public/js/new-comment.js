@@ -14,14 +14,19 @@ commentForm.addEventListener('submit', (e) => {
 // console.log('stringifiedFormData: ', JSON.stringify(commentFormData))
 // You cannot console.log a form Object directly, you must use an iterative method.  Source https://www.youtube.com/watch?v=EnWqnyUZ65Y
 
-for (item of commentFormData){
-    console.log(item[0],item[1])
-}
+const json = convertFD2JSON(commentFormData);
+console.log('json: ', json)
+
+
+// for (item of commentFormData){
+//     console.log(item[0],item[1])
+// }
 
   // Make POST request to insert new comment
   fetch(`/post/${hiddenPostIdFromForm}/new-comment`, {
     method: 'POST',
-    body: commentFormData,
+    headers: { 'Content-Type': 'application/json' },
+    body: json,
   })
   .then((res) => {
     if (res.ok) {

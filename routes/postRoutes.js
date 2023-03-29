@@ -99,7 +99,7 @@ async function getPost(req) {
 
 
         const newComment = await Comment.create({
-            comment_content: req.fields.commentText,
+            comment_content: req.body.commentText,
             comment_date_time: Math.floor(Date.now() / 1000),
             comment_author_id: req.session.authorId,
             post_id: req.params.id
