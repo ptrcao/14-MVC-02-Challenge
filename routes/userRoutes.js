@@ -130,6 +130,7 @@ router.post('/signup', async (req, res) => {
     const username = req.body.username;
     const email = req.body.email;
     const password = req.body.password;
+    console.log(password)
     const confirmPassword = req.body.confirm_password;
 
     console.log(username, email, password, confirmPassword)
@@ -157,13 +158,13 @@ router.post('/signup', async (req, res) => {
 
     // Hash password
     console.log('look password: ', password);
-    const hashedPassword = await bcrypt.hash(password, 10);
+    // const hashedPassword = await bcrypt.hash(password, 10);
 
     // Create new author
     const newAuthor = await Author.create({
       username,
       email,
-      password: hashedPassword,
+      password,
     });
 
     // // Create new session and set req.session.loggedIn to true upon successful sign up
